@@ -1,0 +1,17 @@
+{
+    "urls": [
+        "http://tangodev.it"
+    ],
+    "browsers": {
+        "chrome": {
+            "mobile" : true,
+            "tablet" : true,
+            "desktop" : true
+        },
+        "firefox": {
+            "mobile" : false,
+            "tablet" : false,
+            "desktop" : true
+        }
+    }
+}

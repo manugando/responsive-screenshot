@@ -1,7 +1,10 @@
 var webdriverio = require('webdriverio');
 var wdioscreenshot = require('wdio-screenshot');
 
-function takeScreenShots(url, browserName, screenSize) {
+function takeScreenshot(settings) {
+    var url = settings.url;
+    var browserName = settings.browserName;
+    var screenSize = settings.screenSize;
     var pageTitle;
     var options = {
         desiredCapabilities: {
@@ -11,14 +14,15 @@ function takeScreenShots(url, browserName, screenSize) {
     var client = webdriverio.remote(options);
     wdioscreenshot.init(client);
 
-    client.addCommand("takeScreenshots", function () {
-        console.log('Taking screenshots of ' + pageTitle);
+    client.addCommand("saveScreenshots", function () {
         return this
-                .saveViewportScreenshot('output/' + pageTitle + '/' + browserName + '-' + screenSize.name + '-viewport.jpg')
-                .saveDocumentScreenshot('output/' + pageTitle + '/' + browserName + '-' + screenSize.name + '-document.jpg');
+                .saveViewportScreenshot('output/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-viewport.jpg')
+                .saveDocumentScreenshot('output/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-document.jpg');
     });
 
-    client
+    console.log('Taking screenshots of ' + url + ' on ' + browserName + ' at ' + screenSize.name + ' screensize');
+
+    return client
         .init()
         .setViewportSize({
             width: screenSize.width,
@@ -28,9 +32,46 @@ function takeScreenShots(url, browserName, screenSize) {
         .getTitle().then(function(title) {
             pageTitle = title;
         })
-        .pause(5000)
-        .takeScreenshots()
+        .pause(3000)
+        .saveScreenshots()
         .end();
 }
 
-takeScreenShots('http://tangodev.it', 'chrome', {name: "Nexus 5", width: 360, height: 640});
+function getQueueFromRunConfig() {
+    var queue = []; 
+    var runconfig = require('./runconfig.json');
+    var screensizes = require('./screesizes.json');
+    for(var urlKey in runconfig.urls) {
+        var url = runconfig.urls[urlKey];
+        for (var browserName in runconfig.browsers) {
+            var browser = runconfig.browsers[browserName];
+            for(var deviceType in browser) {
+                var isDeviceTypeToExecute = browser[deviceType];
+                if(isDeviceTypeToExecute) {
+                    var screeSizesToExecute = screensizes[deviceType];
+                    for(var screenSizeKey in screeSizesToExecute) {
+                        var screenSize = screeSizesToExecute[screenSizeKey];
+                        queue.push({url: url, browserName: browserName, screenSize: screenSize});
+                    }
+                }
+            }
+        }
+    }
+    return queue;
+}
+
+function takeNextScreenshot() {
+    if(currentQueueElementIndex < screenshotQueue.length) {
+        console.log("Taking " + (currentQueueElementIndex + 1) + " of " + screenshotQueue.length + " screenshots");
+        takeScreenshot(screenshotQueue[currentQueueElementIndex]).then(function() {
+            currentQueueElementIndex++;
+            takeNextScreenshot();
+        });
+    } else {
+        console.log("Finished");
+    }
+}
+
+var screenshotQueue = getQueueFromRunConfig();
+var currentQueueElementIndex = 0;
+takeNextScreenshot();

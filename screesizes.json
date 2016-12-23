@@ -1,0 +1,43 @@
+{
+    "mobile": [
+        {
+            "name": "Nexus5",
+            "width": 360,
+            "height": 640
+        },
+        {
+            "name": "iPhone5",
+            "width": 320,
+            "height": 568
+        }
+    ],
+    "tablet": [
+        {
+            "name": "iPad",
+            "width": 768,
+            "height": 1024
+        },
+        {
+            "name": "Nexus7",
+            "width": 600,
+            "height": 960
+        }
+    ],
+    "desktop": [
+        {
+            "name": "LaptopMDPI",
+            "width": 1280,
+            "height": 800
+        },
+        {
+            "name": "LaptopHDPI",
+            "width": 1440,
+            "height": 900
+        },
+        {
+            "name": "LaptopXHDPI",
+            "width": 1920,
+            "height": 1080
+        }
+    ]
+}
