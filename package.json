@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/manugando/responsive-screenshot#readme",
   "dependencies": {
+    "rimraf": "^2.5.4",
     "wdio-screenshot": "^0.4.0"
   }
 }

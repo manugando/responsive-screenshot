@@ -1,5 +1,7 @@
+var rimraf = require('rimraf');
 var webdriverio = require('webdriverio');
 var wdioscreenshot = require('wdio-screenshot');
+var OUTPUT_FOLDER = "output";
 
 function takeScreenshot(settings) {
     var url = settings.url;
@@ -16,8 +18,8 @@ function takeScreenshot(settings) {
 
     client.addCommand("saveScreenshots", function () {
         return this
-                .saveViewportScreenshot('output/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-viewport.jpg')
-                .saveDocumentScreenshot('output/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-document.jpg');
+                .saveViewportScreenshot(OUTPUT_FOLDER + '/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-viewport.jpg')
+                .saveDocumentScreenshot(OUTPUT_FOLDER + '/' + pageTitle + '/' + browserName + '/' + screenSize.name + '-document.jpg');
     });
 
     console.log('Taking screenshots of ' + url + ' on ' + browserName + ' at ' + screenSize.name + ' screensize');
@@ -74,4 +76,4 @@ function takeNextScreenshot() {
 
 var screenshotQueue = getQueueFromRunConfig();
 var currentQueueElementIndex = 0;
-takeNextScreenshot();
+rimraf(OUTPUT_FOLDER, takeNextScreenshot);
