@@ -1,0 +1,1 @@
+java -jar -Dwebdriver.chrome.driver=./libs/chromedriver.exe -Dwebdriver.gecko.driver=./libs/geckodriver.exe -Dwebdriver.ie.driver=./libs/IEDriverServer.exe ./libs/selenium-server-standalone-3.0.1.jar
