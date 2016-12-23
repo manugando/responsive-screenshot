@@ -1,0 +1,22 @@
+{
+  "name": "responsive-screenshot",
+  "version": "1.0.0",
+  "description": "A simple node utility to take screenshots of web pages at different resolutions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manugando/responsive-screenshot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manugando/responsive-screenshot/issues"
+  },
+  "homepage": "https://github.com/manugando/responsive-screenshot#readme",
+  "dependencies": {
+    "wdio-screenshot": "^0.4.0"
+  }
+}
