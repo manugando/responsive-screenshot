@@ -12,6 +12,11 @@
             "mobile" : false,
             "tablet" : false,
             "desktop" : true
+        },
+        "internet explorer": {
+            "mobile" : false,
+            "tablet" : false,
+            "desktop" : true
         }
     }
 }
