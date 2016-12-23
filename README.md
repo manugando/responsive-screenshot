@@ -8,4 +8,5 @@ A simple node utility to take screenshots of web pages at different resolutions,
 - If you want to use IE, download the [IEdriver](http://www.seleniumhq.org/download/) and save the executable file in the **libs** folder
 - From the project root folder launch the selenium server:
 `java -jar -Dwebdriver.chrome.driver=./libs/chromedriver.exe -Dwebdriver.gecko.driver=./libs/geckodriver.exe -Dwebdriver.ie.driver=./libs/IEDriverServer.exe ./libs/selenium-server-standalone-3.0.1.jar`
+- Edit the `runconfig.json` file to configure urls, browsers and screen sizes that you want to test
 - Launch the node script: `node index.js`
